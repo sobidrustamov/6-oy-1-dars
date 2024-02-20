@@ -1,28 +1,42 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "../components/card/card";
+import { Form } from "../components/form/form";
+import customAxios from "../components/config/request";
 
 export const Home = () => {
-  const url = "http://localhost:3000/todos";
-
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const getData = async () => {
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      setData(data);
-    } catch (error) {
-      console.log(error);
-    }
+    setLoading(true);
+    customAxios
+      .get(`todos`, {
+        params: {
+          _limit: 4,
+          _page: 1,
+        },
+      })
+      .then((res) => {
+        setData(res.data);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
   useEffect(() => {
     getData();
-  });
+  }, []);
   return (
     <div>
-      Home
-      {data?.map((item, i) => (
-        <Card key={i} {...item} getData={getData} />
-      ))}
+      {loading ? (
+        <h2>Loading..</h2>
+      ) : (
+        <div>
+          <Form getData={getData} />{" "}
+          {data?.map((item, i) => (
+            <Card key={i} {...item} getData={getData} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
