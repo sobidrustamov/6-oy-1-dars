@@ -20,7 +20,10 @@ export const Form = ({ getData }) => {
       });
   };
   return (
-    <form onSubmit={submit}>
+    <form
+      onSubmit={submit}
+      className="d-flex gap-2 flex-column align-items-center my-3"
+    >
       <div>
         <input
           onChange={changeInput}

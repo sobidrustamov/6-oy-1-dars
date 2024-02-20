@@ -9,12 +9,7 @@ export const Home = () => {
   const getData = async () => {
     setLoading(true);
     customAxios
-      .get(`todos`, {
-        params: {
-          _limit: 4,
-          _page: 1,
-        },
-      })
+      .get(`todos`)
       .then((res) => {
         setData(res.data);
       })
@@ -31,10 +26,12 @@ export const Home = () => {
         <h2>Loading..</h2>
       ) : (
         <div>
-          <Form getData={getData} />{" "}
-          {data?.map((item, i) => (
-            <Card key={i} {...item} getData={getData} />
-          ))}
+          <Form getData={getData} /> <h1>Todos</h1>
+          <div className="d-flex flex-wrap justify-content-between">
+            {data?.map((item, i) => (
+              <Card key={i} {...item} getData={getData} />
+            ))}
+          </div>
         </div>
       )}
     </div>

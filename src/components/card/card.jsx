@@ -26,11 +26,18 @@ export const Card = ({ title, description, id, getData }) => {
       });
   };
   return (
-    <div>
+    <div className="border p-2 m-2 d-flex flex-column gap-2 w-25">
       <h3>{description}</h3>
       <p>{title}</p>
-      <button onClick={handleDelete}>delete</button>
-      <button onClick={editItem}>edit</button>
+      <button
+        className="bg-danger border-0 py-3 rounded-5"
+        onClick={handleDelete}
+      >
+        delete
+      </button>
+      <button className="bg-warning border-0 py-3 rounded-5" onClick={editItem}>
+        edit
+      </button>
     </div>
   );
 };
